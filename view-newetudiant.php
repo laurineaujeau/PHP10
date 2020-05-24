@@ -8,24 +8,28 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-<h1>Ajout d'un étudiant</h1>
-<form action="controller.php?func=newStudent" method="post">
-    User_id:
-    <input type='text' name='userid'/><br>
-    Nom:
-    <input type='text' name='nom'/><br>
-    Prenom:
-    <input type='text' name='prenom'/><br>
-    Note:
-    <input type='text' name='note'/><br>
 
-    <input type='submit' name='ajouter' value='Ajouter'/><br>
+<div class="col-7">
+<br><h1>Ajout d'un étudiant</h1><br>
+</div>
+<div class="col-3">
+<form action="controller.php?func=newStudent" method="post"> <!-- permet d'appliquer la fonction newStudent du fichier controller.php quand le formulaire a été rempli -->
+
+    <label>User_id:</label>
+    <input type='text'  class="form-control" name='userid'/><br>
+
+    <label>Nom:</label>
+    <input type='text'  class="form-control" name='nom'/><br>
+    <label> Prenom:</label>
+    <input type='text' class="form-control" name='prenom'/><br>
+    <label> Note:</label>
+    <input type='text' class="form-control" name='note'/><br><br>
+
+    <input type='submit' name='ajouter' class="btn btn-primary" value='Ajouter'/><br>
 
 </form>
-<?php
-/*include "controller.php";
-newStudent($idcon);*/
-?>
+</div>
+</div>
 </body>
 </html>
 

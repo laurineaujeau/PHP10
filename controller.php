@@ -1,13 +1,5 @@
 <?php
-/*include "view-editetudiant.php";
-include "view-admin.php";
-include "view-newetudiant.php";
-include "viewadmin.php";
-include "viewlogin.php";
-include "viewnewuser.php";
-include "index.php";
-include "tp10.php";
-include "file.php";*/
+// connexion à la base de données
 function connexpdo($base, $user, $password)
 {
     try {
@@ -22,6 +14,12 @@ $user = 'postgres';
 $password = 'isen2018';
 
 $idcon = connexpdo($base,$user,$password);
+
+// ce if permet de faire la liaison entre toutes les pages html
+//attention a bien noter les fonctions sans mettre d'espace
+//si la page est toute blanche et l'url est celui ce controller.php ,
+// la page html n'a pas pu acceder a la fonction php ou la redirection vers une autre page est mauvaise
+// dans ce cas vérifier ce if, le header et la balise form de la page html
 
 if(isset($_GET['func'])){
     if($_GET['func'] == "authentification"){
@@ -38,52 +36,44 @@ if(isset($_GET['func'])){
 }
 
 function newUser($idcon){
-    echo "Tu es avant le isset";
-    echo '<br>';
-    if(isset($_POST['login']) && isset($_POST['password']) && isset($_POST['mail']) && isset($_POST['nom']) && isset($_POST['prenom']) ){
-        echo "Tu es dans le isset";
-        echo '<br>';
+    if(isset($_POST['login']) && isset($_POST['password']) && isset($_POST['mail']) && isset($_POST['nom']) && isset($_POST['prenom']) ){ // vérifie que toutes les données ont bien été rentrées
         $query = "SELECT * from utilisateur";
-        $result = $idcon->query($query);
+        $result = $idcon->query($query); // permet la liaison entre la requete et la base de données et renvoi un tableau des résultats de la requete
         $compteur =0;
         foreach($result as $data){
-            if($data["id"] > $compteur){
-                $compteur = $data["id"];
-            }
-        }
-        $compteur = $compteur +1;
+            if($data["id"] > $compteur){ //
+                $compteur = $data["id"];//
+            }                           //
+        }                               //
+        $compteur = $compteur +1;       // permet de ne tomber su un id deja existant
         $login = $_POST['login'];
         $mdp = $_POST['password'];
         $mail = $_POST['mail'];
         $nom = $_POST['nom'];
         $prenom= $_POST['prenom'];
-        $query1="INSERT INTO utilisateur VALUES(?,?,?,?,?,?)";
+        $query1="INSERT INTO utilisateur VALUES(?,?,?,?,?,?)"; // les ? seront remplacés par les variables mises entre crochet dans le execute
         $result1 = $idcon->prepare($query1);
         $result1->execute([$compteur,$login,$mdp,$mail,$nom,$prenom]);
-        echo "Tu as fini lexecution ";
-        echo '<br>';
-        header("Location:index.php");
+        header("Location:index.php"); //permet la redirection vers la page index.php
     }
 }
+
+//Ensuite le code est quasiment identique
+
 function authentification($idcon){
-    echo "lala";
     if(isset($_POST['login']) && isset($_POST['password'])){
-        echo "isset";
         $query = "SELECT * from utilisateur";
         $result = $idcon->query($query);
         $login = $_POST['login'];
         $mdp = $_POST['password'];
         foreach($result as $data){
-            echo "foreach";
            if ($data['login']== $login){
                if ($data['password']== $mdp){
-                   echo "connexion";
                    header("Location:viewadmin.php");
                }
            }
            else{
                header("Location:viewadmin.php");
-               echo "louper";
            }
         }
     }
@@ -146,7 +136,7 @@ function listeEtudiants($idcon){
     echo '<table class="table">';
     echo '<thead>';
     echo '<tr>';
-    echo '<th scope="col"> User ID </th>';
+    echo '<th scope="col"> User ID </th>'; // scope="col" permet d'avoir un tableau plus joli avec Boostrap
     echo '<th scope="col"> Nom </th>';
     echo '<th scope="col"> Prénom </th>';
     echo '<th scope="col"> Note </th>';

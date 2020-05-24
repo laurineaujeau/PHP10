@@ -7,22 +7,31 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-<h1>Nouveau utilisateur (professeur)</h1>
-<form action="controller.php?func=newUser" method="post">
-    Login:
-    <input type='text' name='login'/><br>
-    Password:
-    <input type='text' name='password'/><br>
-    Mail:
-    <input type='text' name='mail'/><br>
-    Nom:
-    <input type='text' name='nom'/><br>
-    Prenom:
-    <input type='text' name='prenom'/><br>
+<div class="col-7">
+    <br><h1>Nouvel utilisateur (professeur)</h1>
+</div>
+<div class="col-3">
+<form action="controller.php?func=newUser" method="post"> <!-- permet d'appliquer la fonction newUser du fichier controller.php quand le formulaire a été rempli -->
 
-    <input type='submit' name='ajouter' value='Ajouter'/><br>
+    <label>Login:</label>
+    <input type='text' class="form-control" name='login'/><br>
+
+    <label>Password:</label>
+    <input type='text' class="form-control" name='password'/><br>
+
+    <label>Mail:</label>
+    <input type='text' class="form-control" name='mail'/><br>
+
+    <label>Nom:</label>
+    <input type='text' class="form-control" name='nom'/><br>
+
+    <label>Prenom:</label>
+    <input type='text' class="form-control" name='prenom'/><br>
+
+    <input type='submit' name='ajouter' class="btn btn-primary" value='Ajouter'/><br>
 
 </form>
+</div>
 </body>
 </html>
 

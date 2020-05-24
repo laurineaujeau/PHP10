@@ -7,16 +7,21 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
-<h1>Authentification</h1>
-<form action="controller.php?func=authentification" method="post">
-    Login:
-    <input type='text' name='login'/><br>
-    Password:
-    <input type='text' name='password'/><br>
+<div class="col-7">
+<br><br><h1>Authentification</h1>
+</div>
+<div class="col-3">
+<form action="controller.php?func=authentification" method="post"><!-- permet d'appliquer la fonction authentification du fichier controller.php quand le formulaire a été rempli -->
 
-    <input type='submit' name='authentification' value='Authentification'/><br>
+    <label>Login:</label>
+    <input type='text' class="form-control" name='login'/><br>
+
+    <label>Password:</label>
+    <input type='text' class="form-control" name='password'/><br><br>
+
+    <input type='submit' name='authentification' class="btn btn-primary" value='Se connecter'/><br>
 
 </form>
+</div>
 </body>
 </html>

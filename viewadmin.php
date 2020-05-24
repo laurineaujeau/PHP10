@@ -8,30 +8,34 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-<h1>Vue globale</h1>
+<div class="col-8 text-center">
+<br><h1>Vue globale</h1><br>
+</div>
+<div class="col-8">
+<br><h4>Liste des étudiants</h4><br>
 <?php
 include "controller.php";
 listeEtudiants($idcon);
 ?>
-<!--<form action="view-editetudiant.php" method="post">-->
-<form action="controller.php?func=redirection" method="post">
-    <input type='submit' name='modifier' value='Modifier un etudiant'/><br>
-    <input type='submit' name='supprimer' value='Supprimer un etudiant'/><br>
-</form>
-<form action="viewadmin.php?func=redirection" method="post">
-    <input type='submit' name='ajouter' value='Ajouter un etudiant'/><br>
-</form>
+<div class="text-center">
+<form action="controller.php?func=redirection" method="post"><!-- permet d'appliquer la fonction redirection du fichier controller.php quand le formulaire a été rempli -->
+    <div class="btn-group">
+    <input type='submit' name='modifier' class="btn btn-primary" value='Modifier un etudiant'/><br>
+    </div>
+        <div class="btn-group">
+    <input type='submit' name='supprimer' class="btn btn-primary" value='Supprimer un etudiant'/><br>
+        </div>
+            <div class="btn-group">
+    <input type='submit' name='ajouter'  class="btn btn-primary" value='Ajouter un etudiant'/><br>
+    </div>
+</form><br>
+</div>
 <?php
-
 moyenneNotes($idcon);
 ?>
-<!--<form action="index.php?func=redirection" method="post">-->
 <form action="controller.php?func=redirection" method="post">
-    <input type='submit' name='deconnexion' value='Deconnexion'/><br>
+    <br><input type='submit' name='deconnexion' class="btn btn-secondary" value='Deconnexion'/><br>
 </form>
-<?php
-
-//redirection($idcon);
-?>
+</div>
 </body>
 </html>
