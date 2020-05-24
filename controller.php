@@ -24,24 +24,32 @@ $password = 'isen2018';
 $idcon = connexpdo($base,$user,$password);
 
 if(isset($_GET['func'])){
-    if($_GET['func'] == 'authentification'){
+    if($_GET['func'] == "authentification"){
         authentification($idcon);
-    }else if($_GET['func'] == "newUser "){
-        newUser ($idcon);
+    }else if($_GET['func'] == "newUser"){
+        newUser($idcon);
     }else if($_GET['func'] == "modifStudent"){
         modifStudent($idcon);
     }else if($_GET['func'] == "redirection"){
         redirection($idcon);
+    }else if($_GET['func'] == "newStudent"){
+        newStudent($idcon);
     }
 }
 
-function newUser ($idcon){
-    if(isset($_POST['login']) && isset($_POST['password']) && isset($_POST['mail']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['ajouter'])){
+function newUser($idcon){
+    echo "Tu es avant le isset";
+    echo '<br>';
+    if(isset($_POST['login']) && isset($_POST['password']) && isset($_POST['mail']) && isset($_POST['nom']) && isset($_POST['prenom']) ){
+        echo "Tu es dans le isset";
+        echo '<br>';
         $query = "SELECT * from utilisateur";
         $result = $idcon->query($query);
         $compteur =0;
         foreach($result as $data){
-            $compteur = $compteur +1;
+            if($data["id"] > $compteur){
+                $compteur = $data["id"];
+            }
         }
         $compteur = $compteur +1;
         $login = $_POST['login'];
@@ -52,23 +60,30 @@ function newUser ($idcon){
         $query1="INSERT INTO utilisateur VALUES(?,?,?,?,?,?)";
         $result1 = $idcon->prepare($query1);
         $result1->execute([$compteur,$login,$mdp,$mail,$nom,$prenom]);
+        echo "Tu as fini lexecution ";
+        echo '<br>';
         header("Location:index.php");
     }
 }
-function authentification ($idcon){
+function authentification($idcon){
+    echo "lala";
     if(isset($_POST['login']) && isset($_POST['password'])){
+        echo "isset";
         $query = "SELECT * from utilisateur";
         $result = $idcon->query($query);
         $login = $_POST['login'];
         $mdp = $_POST['password'];
         foreach($result as $data){
+            echo "foreach";
            if ($data['login']== $login){
                if ($data['password']== $mdp){
+                   echo "connexion";
                    header("Location:viewadmin.php");
                }
            }
            else{
                header("Location:viewadmin.php");
+               echo "louper";
            }
         }
     }
@@ -117,9 +132,10 @@ function modifStudent($idcon){
 
     if(isset($_POST['supprimer'])){
         //echo "isset";
-        $query3 = "DELETE from etudiant WHERE user_id=?";
+        $query3 = "DELETE from etudiants WHERE user_id=?";
         $result3 = $idcon->prepare($query3);
         $result3->execute([$_POST['useridSuppr']]);
+        header("Location:viewadmin.php");
     }
 
 
@@ -152,9 +168,12 @@ function moyenneNotes($idcon){
     $query = "SELECT * from etudiants";
     $result = $idcon->query($query);
     $moyenne =0;
+    $compteur =0;
     foreach ($result as $data) {
         $moyenne += $data['note'];
+        $compteur = $compteur +1;
     }
+    $moyenne = $moyenne/$compteur;
     echo '<strong>Note moyenne des étudiants: </strong>'.$moyenne;
     echo '<br>';
 }
